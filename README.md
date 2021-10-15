@@ -1,5 +1,5 @@
 # Change-Photo-Style
-Photo Style Transfer with Machine Learning
+Photo Style Transfer with Machine Learning 
 
 
 ## main.py
