@@ -43,27 +43,27 @@ try:
                 (h, w) = img.shape[:2]
                 blob = cv2.dnn.blobFromImage(img, 1.0, (w,h), (103.939, 116.779, 123.680), swapRB=False, crop=False) #把影像修改成神經網路可以使用的格式
 
-                start = time.time() #紀錄開始時間
-
-                net.setInput(blob) #把影像丟入模型做風格轉換
-                out = net.forward() #開始轉換!
+                
+                start = time.time()           #紀錄開始時間
+                net.setInput(blob)            #把影像丟入模型做風格轉換
+                out = net.forward()           #開始轉換!
                 out = out.reshape(3, out.shape[2], out.shape[3])
                 out[0] += 103.939
                 out[1] += 116.779
                 out[2] += 123.68
                 out = out.transpose(1, 2, 0)
-
-                end = time.time() #紀錄結束時間
+                end = time.time()             #紀錄結束時間
+                
+                
                 print("computation time = {} sec.".format(end-start))
 
                 #cv2.imshow("a", out)
-                cv2.imwrite(name_tran, out) #這裡直接將img以opencv的function儲存
+                cv2.imwrite(name_tran, out)   #這裡直接將img以opencv的function儲存
                 cv2.waitKey(0)
-                #如果58行和60行衝突 -> 把處理風格轉換 36行~58行 移出 try 去做處理
+                #備註 : 如果58行和60行衝突 -> 把處理風格轉換 36行~58行 移出 try 去做處理
                 
 except KeyboardInterrupt:
     print('interrupt')
 finally:
-    # 程式結束之後記得關閉相機，同時把剛剛呼叫出來的視窗關閉喔!
-    camera.close()
-    cv2.destroyAllWindows()
+    camera.close()                 #關閉相機
+    cv2.destroyAllWindows()        #關閉所有視窗
