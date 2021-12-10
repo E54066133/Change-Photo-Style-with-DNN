@@ -44,15 +44,15 @@ try:
                 blob = cv2.dnn.blobFromImage(img, 1.0, (w,h), (103.939, 116.779, 123.680), swapRB=False, crop=False)    #把影像修改成神經網路可以使用的格式
 
                 
-                start = time.time()           #紀錄開始時間
-                net.setInput(blob)            #把影像丟入模型做風格轉換
-                out = net.forward()           #開始轉換!
-                out = out.reshape(3, out.shape[2], out.shape[3])
-                out[0] += 103.939
-                out[1] += 116.779
-                out[2] += 123.68
-                out = out.transpose(1, 2, 0)  #轉置圖層
-                end = time.time()             #紀錄結束時間
+                start = time.time()                                 #紀錄開始時間
+                net.setInput(blob)                                  #把影像丟入模型做風格轉換
+                out = net.forward()                                 #開始轉換!
+                out = out.reshape(3, out.shape[2], out.shape[3])    #調整out矩陣陣列形式
+                out[0] += 103.939                                   #調色(參考網路)
+                out[1] += 116.779                                   #調色(參考網路)
+                out[2] += 123.68                                    #調色(參考網路)
+                out = out.transpose(1, 2, 0)                        #轉置圖層
+                end = time.time()                                   #紀錄結束時間
                 
                 
                 print("computation time = {} sec.".format(end-start))
